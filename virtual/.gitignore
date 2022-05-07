@@ -1,6 +1,7 @@
 .idea
 .bin
-*pyc
+*.pyc
 virtual/
 start.sh
 __pycache__
+*.sh
