@@ -16,7 +16,9 @@
         <li class="list-group-item my-2">
             <div>
                 <small class="fst-italic">category - {{ pitch.category }}</small>
+                <small class="fst-italic float-end">{{ moment(pitch.posted_on).format('LL') }}</small>
             </div>
+
             <div class="my-3">
                 {{ pitch.pitch_content }}
             </div>

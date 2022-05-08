@@ -19,7 +19,7 @@
             {{ render_field(form.submit, button_size='sm', class="btn-success") }}
         </form>
 
-        {% if comments.comments %}
+        {% if comments %}
         <div class="mt-4">
             <ol class="list-group list-group-numbered">
                 {% for comment in comments.comments %}

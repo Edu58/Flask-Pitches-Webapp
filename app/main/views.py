@@ -2,15 +2,16 @@ from flask import render_template, url_for, redirect, request, flash
 from app import db
 from . import main
 from .forms import NewPitchForm, CommentForm
-from ..models import Users, Pitches, Comments, Reactions, Categories
+from ..models import Pitches, Comments, Reactions, Categories
 from flask_login import login_required
+from sqlalchemy import desc
 
 
 @main.route('/', methods=['GET', 'POST'])
 @login_required
 def index():
     # Get all pitches in db
-    all_pitches = Pitches.query.all()
+    all_pitches = Pitches.query.order_by(desc(Pitches.posted_on))
     return render_template('index.html', pitches=all_pitches)
 
 
@@ -23,8 +24,6 @@ def add_pitch():
     for category in all_categories_list:
         choices.append(category.category_name)
 
-    print(choices)
-
     form = NewPitchForm()
     # Submission handling
     if request.method == "POST" and form.validate_on_submit():
@@ -33,7 +32,6 @@ def add_pitch():
 
         # if chooses category is in the db
         if category in choices:
-            print(choices.index(category))
             new_pitch = Pitches(pitch_content=pitch, category_id=int(choices.index(category)) + 1)
             db.session.add(new_pitch)
             db.session.commit()

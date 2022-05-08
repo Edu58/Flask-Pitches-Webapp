@@ -14,6 +14,7 @@
           rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='base.css') }}">
     {% endblock styles %}
+    {{ moment.include_moment() }}
     <title>{% block title %} {% endblock title %}</title>
 </head>
 <body>
