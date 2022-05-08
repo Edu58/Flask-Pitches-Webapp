@@ -3,6 +3,10 @@
     text-decoration: none;
 }
 
+body {
+background-color: #D8DFED;
+}
+
 nav #home-btn{
 background-color: #FF6D38;
 }
