@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import TextAreaField, SubmitField, SelectField
+from wtforms import TextAreaField, SubmitField, SelectField, StringField
 from wtforms.validators import DataRequired
 
 
@@ -10,3 +10,8 @@ class NewPitchForm(FlaskForm):
                                     ('pickup line', 'pickup line')])
     pitch = TextAreaField('Pitch Content', validators=[DataRequired()])
     submit = SubmitField('submit')
+
+
+class CommentForm(FlaskForm):
+    comment = StringField('Write Your Comment', validators=[DataRequired()])
+    submit = SubmitField('comment')

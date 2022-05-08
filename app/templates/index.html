@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='pitch-list.css') }}">
+{% endblock styles %}
+
 {% block title %} Home {% endblock %}
 
 {% block content %}
@@ -11,8 +16,13 @@
             <div>
                 <small class="fst-italic">category - {{ pitch.category }}</small>
             </div>
-            <div class="my-2">
+            <div class="my-3">
                 {{ pitch.pitch_content }}
+            </div>
+            <div class="float-start">
+                <a href="">
+                    <button class="btn btn-sm text-light fst-italic" id="comment-btn">comment</button>
+                </a>
             </div>
             <div class="float-end">
                 <small class="fst-italic">author @{{ current_user.first_name}}</small>
