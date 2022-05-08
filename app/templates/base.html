@@ -1,4 +1,5 @@
 <!doctype html>
+{% from 'bootstrap5/utils.html' import render_messages %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,6 +29,7 @@
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% if current_user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">
                         <button class="btn btn-sm text-light" id="home-btn">Home</button>
@@ -44,6 +46,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">
+                        <button class="btn btn btn-sm btn-outline-dark">Logout</button>
+                    </a>
+                </li>
+                {% else %}
+                <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ url_for('auth.login') }}">
                         <button class="btn btn btn-sm btn-outline-dark">Login</button>
                     </a>
@@ -53,16 +61,15 @@
                         <button class="btn btn btn-sm btn-outline-dark">Signup</button>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">
-                        <button class="btn btn btn-sm btn-outline-dark">Logout</button>
-                    </a>
-                </li>
+                {% endif %}
             </ul>
         </div>
     </div>
 </nav>
 <div class="container">
+
+    {{ render_messages() }}
+
     {% block content %}
     {% endblock content %}
 </div>

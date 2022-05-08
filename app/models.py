@@ -1,9 +1,10 @@
-from app import db
+from app import db, login_manager
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
 
-class Users(db.Model):
+class Users(UserMixin, db.Model):
     __tablename__ = 'users'
 
     user_id = db.Column(db.Integer, primary_key=True)
@@ -17,7 +18,7 @@ class Users(db.Model):
     reactions = db.relationship('Reactions', backref='user', lazy='dynamic')
 
     def __repr__(self):
-        return f'User -> {self.first_name}, {self.last_name}, {self.pass_hashed}'
+        return f'User -> {self.email}'
 
     @property
     def password(self):
@@ -29,6 +30,17 @@ class Users(db.Model):
 
     def verify_password(self, password):
         return check_password_hash(self.pass_hashed, password)
+
+    def get_id(self):
+        return self.user_id
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    try:
+        return Users.query.get(int(user_id))
+    except:
+        return None
 
 
 class Pitches(db.Model):

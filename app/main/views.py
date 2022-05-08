@@ -27,16 +27,15 @@ def add_pitch():
 
     form = NewPitchForm()
     # Submission handling
-    if request.method == "POST":
-        if form.validate_on_submit():
-            category = form.category.data
-            pitch = form.pitch.data
+    if request.method == "POST" and form.validate_on_submit():
+        category = form.category.data
+        pitch = form.pitch.data
 
-            # if chooses category is in the db
-            if category in choices:
-                new_pitch = Pitches(pitch_content=pitch, category_id=int(choices.index(category)) + 1)
-                db.session.add(new_pitch)
-                db.session.commit()
-                return redirect(url_for('main.index'))
+        # if chooses category is in the db
+        if category in choices:
+            new_pitch = Pitches(pitch_content=pitch, category_id=int(choices.index(category)) + 1)
+            db.session.add(new_pitch)
+            db.session.commit()
+            return redirect(url_for('main.index'))
 
     return render_template('add-pitch.html', form=form)
