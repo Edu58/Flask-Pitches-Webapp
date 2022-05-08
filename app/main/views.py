@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect, request
+from flask import render_template, url_for, redirect, request, flash
 from app import db
 from . import main
 from .forms import NewPitchForm, CommentForm
@@ -49,6 +49,15 @@ def add_comment(pitch_id, user_id):
 
     if request.method == "POST":
         if comment_form.validate_on_submit():
-            print(comment_form.comment.data)
 
-    return render_template('comment.html', form=comment_form)
+            comment = comment_form.comment.data
+            new_comment = Comments(comment=comment, pitch_id=pitch_id, user_id=user_id)
+
+            Comments.save_comment(new_comment)
+
+            return redirect(url_for('main.index'))
+        else:
+            flash('Invalid comment. Remember, BE NICE')
+
+    else:
+        return render_template('comment.html', form=comment_form)
