@@ -46,6 +46,7 @@ def add_comment(pitch_id, user_id):
     comment_form = CommentForm()
 
     all_comments = Pitches.query.filter_by(pitch_id=pitch_id).first()
+    commenter = Users.query.filter_by(user_id=user_id).first()
 
     if request.method == "POST":
         if comment_form.validate_on_submit():
@@ -59,7 +60,7 @@ def add_comment(pitch_id, user_id):
         else:
             flash('Invalid comment. Remember, BE NICE')
 
-    return render_template('comment.html', form=comment_form, comments=all_comments)
+    return render_template('comment.html', form=comment_form, comments=all_comments, commenter=commenter.first_name)
 
 
 @main.route('/profile/<user_id>', methods=["GET", "POST"])

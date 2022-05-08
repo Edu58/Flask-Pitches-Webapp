@@ -23,7 +23,16 @@
         <div class="mt-4">
             <ol class="list-group list-group-numbered">
                 {% for comment in comments.comments %}
-                <li class="list-group-item my-3">{{ comment.comment }}</li>
+                <li class="list-group-item my-3">
+                    <small class="float-end fst-italic">
+                        {{ moment(comment.posted_on).format('LL') }}
+                    </small>
+
+                    {{ comment.comment }}
+                    <div>
+                        <small class="float-end fst-italic">by {{ commenter }} </small>
+                    </div>
+                </li>
                 {% endfor %}
             </ol>
         </div>
