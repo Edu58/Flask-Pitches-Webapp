@@ -2,7 +2,7 @@ from flask import render_template, url_for, redirect, request, flash
 from app import db
 from . import main
 from .forms import NewPitchForm, CommentForm
-from ..models import Pitches, Comments, Reactions, Categories
+from ..models import Pitches, Comments, Reactions, Categories, Users
 from flask_login import login_required
 from sqlalchemy import desc
 
@@ -65,4 +65,6 @@ def add_comment(pitch_id, user_id):
 @main.route('/profile/<user_id>', methods=["GET", "POST"])
 @login_required
 def profile(user_id):
-    return render_template('profile.html')
+    user = Users.query.filter_by(user_id=user_id).first()
+    return render_template('profile.html', first=user.first_name, last=user.last_name, email=user.email,
+                           profile_path=user.profile_path)

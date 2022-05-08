@@ -3,5 +3,14 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
-<h1>Profile</h1>
+<div class="d-flex justify-content-center flex-column align-items-center mt-5">
+    <p class="text-center fs-2">Your Profile</p>
+    <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Name: {{ first }} {{ last }}</h5>
+            <p class="card-text">Email: {{ email }}</p>
+        </div>
+    </div>
+</div>
 {% endblock content %}
