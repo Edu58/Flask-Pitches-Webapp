@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_field, render_hidden_errors %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center mt-5">
+    <div class="w-50">
+        {{ form.csrf_token() }}
+        {{ render_hidden_errors(form) }}
+        {{ render_field(form.email, placeholder='enter your email') }}
+        {{ render_field(form.first_name, placeholder='enter your first name') }}
+        {{ render_field(form.last_name, placeholder='enter your last name') }}
+        {{ render_field(form.password, placeholder='enter your password') }}
+        {{ render_field(form.submit, button_size='sm', class="btn-success") }}
+    </div>
+</div>
+{% endblock content %}

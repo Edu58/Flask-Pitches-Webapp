@@ -11,7 +11,7 @@ class Users(db.Model):
     first_name = db.Column(db.String(30), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)
     pass_hashed = db.Column(db.String, nullable=False)
-    profile_path = db.Column(db.String, nullable=False)
+    profile_path = db.Column(db.String, nullable=True)
     pitches = db.relationship('Pitches', backref='user', lazy='dynamic')
     comments = db.relationship('Comments', backref='user', lazy='dynamic')
     reactions = db.relationship('Reactions', backref='user', lazy='dynamic')

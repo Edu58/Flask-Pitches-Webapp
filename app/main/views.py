@@ -3,9 +3,11 @@ from app import db
 from . import main
 from .forms import NewPitchForm
 from ..models import Users, Pitches, Comments, Reactions, Categories
+from flask_login import login_required
 
 
 @main.route('/', methods=['GET', 'POST'])
+@login_required
 def index():
     # Get all pitches in db
     all_pitches = Pitches.query.all()
@@ -13,6 +15,7 @@ def index():
 
 
 @main.route('/add', methods=["GET", "POST"])
+@login_required
 def add_pitch():
     # Get all categories from db
     all_categories_list = Categories.query.all()
