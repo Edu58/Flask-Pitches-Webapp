@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% from 'bootstrap5/form.html' import render_field %}
+{% from 'bootstrap5/form.html' import render_field, render_hidden_errors %}
 
 {% block styles %}
 {{ super() }}
@@ -10,8 +10,11 @@
 
 {% block content %}
 <form method="POST" class="mt-4">
+    {{ form.csrf_token() }}
+    {{ render_hidden_errors(form) }}
     {{ render_field(form.category) }}
     {{ render_field(form.pitch, placeholder='write your pitch here') }}
     {{ render_field(form.submit, button_size='sm', class="btn-success") }}
 </form>
+
 {% endblock %}
