@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect, request, flash
+from flask import render_template, url_for, redirect, request, flash, abort
 from app import db, photos
 from . import main
 from .forms import NewPitchForm, CommentForm
@@ -74,6 +74,23 @@ def profile(user_id):
 @login_required
 def upload_profile_pic(user_id):
     user = Users.query.filter_by(user_id=user_id).first()
+
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_path = path
+        db.session.commit()
+
+    return redirect(url_for('main.profile', user_id=user_id))
+
+
+@main.route('/user/<user_id>/update-profile-picture', methods=['POST'])
+@login_required
+def update_profile_pic(user_id):
+    user = Users.query.filter_by(user_id=user_id).first()
+
+    if user is None:
+        abort(404)
 
     if 'photo' in request.files:
         filename = photos.save(request.files['photo'])
