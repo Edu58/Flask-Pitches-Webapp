@@ -1,18 +1,20 @@
 from flask import Flask
-from flask_login import LoginManager
-from flask_bootstrap import Bootstrap
+# from flask_login import LoginManager
+from flask_bootstrap import Bootstrap5
+from config import config_options
 
-login = LoginManager()
-login.login_view = "auth.login"
-login.session_protection = "strong"
-login.login_message_category = "warning"
-bootstrap = Bootstrap()
+# login = LoginManager()
+# login.login_view = "auth.login"
+# login.session_protection = "strong"
+# login.login_message_category = "warning"
+bootstrap = Bootstrap5()
 
 
-def create_app():
+def create_app(configuration):
     app = Flask(__name__)
+    app.config.from_object(config_options[configuration])
 
-    login.init_app(app)
+    # login.init_app(app)
 
     bootstrap.init_app(app)
 
