@@ -6,6 +6,13 @@
 {% block content %}
 <div class="d-flex justify-content-center align-items-center mt-5">
     <div class="w-50">
+
+        <div class="mb-4">
+            <p class="fw-bold">
+                {{ comments.pitch_content }}
+            </p>
+        </div>
+
         <form method="POST">
             {{ form.csrf_token() }}
             {{ render_field(form.comment, placeholder='be nice, okay') }}
@@ -13,7 +20,7 @@
         </form>
 
         {% if comments.comments %}
-        <div class="mt-5">
+        <div class="mt-4">
             <ol class="list-group list-group-numbered">
                 {% for comment in comments.comments %}
                 <li class="list-group-item my-3">{{ comment.comment }}</li>
