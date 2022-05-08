@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% from 'bootstrap5/form.html' import render_field, render_hidden_errors %}
+{% from 'bootstrap5/form.html' import render_field %}
 
 {% block title %} Login {% endblock %}
 
@@ -8,7 +8,6 @@
     <div class="w-50">
         <form method="POST">
             {{ form.csrf_token() }}
-            {{ render_hidden_errors(form) }}
             {{ render_field(form.email, placeholder='enter your email') }}
             {{ render_field(form.first_name, placeholder='enter your first name') }}
             {{ render_field(form.last_name, placeholder='enter your last name') }}

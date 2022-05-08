@@ -1,7 +1,7 @@
 from flask import render_template, url_for, redirect, request
 from app import db
 from . import main
-from .forms import NewPitchForm
+from .forms import NewPitchForm, CommentForm
 from ..models import Users, Pitches, Comments, Reactions, Categories
 from flask_login import login_required
 
@@ -40,3 +40,15 @@ def add_pitch():
             return redirect(url_for('main.index'))
 
     return render_template('add-pitch.html', form=form)
+
+
+@main.route('/comment/<user_id>/<pitch_id>', methods=["GET", "POST"])
+@login_required
+def add_comment(pitch_id, user_id):
+    comment_form = CommentForm()
+
+    if request.method == "POST":
+        if comment_form.validate_on_submit():
+            print(comment_form.comment.data)
+
+    return render_template('comment.html', form=comment_form)

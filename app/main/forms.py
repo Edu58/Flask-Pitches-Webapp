@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import TextAreaField, SubmitField, SelectField, StringField
-from wtforms.validators import DataRequired
+from wtforms import TextAreaField, SubmitField, SelectField
+from wtforms.validators import DataRequired, length
 
 
 class NewPitchForm(FlaskForm):
@@ -13,5 +13,5 @@ class NewPitchForm(FlaskForm):
 
 
 class CommentForm(FlaskForm):
-    comment = StringField('Write Your Comment', validators=[DataRequired()])
+    comment = TextAreaField('Write Your Comment', validators=[DataRequired(), length(max=200)])
     submit = SubmitField('comment')
