@@ -9,9 +9,14 @@
         {% for pitch in pitches %}
         <li class="list-group-item my-2">
             <div>
-                <small class="fst-italic">{{ pitch.category }}</small>
+                <small class="fst-italic">category - {{ pitch.category }}</small>
             </div>
-            {{ pitch.pitch_content }}
+            <div class="my-2">
+                {{ pitch.pitch_content }}
+            </div>
+            <div class="float-end">
+                <small class="fst-italic">author @{{ current_user.first_name}}</small>
+            </div>
         </li>
         {% endfor %}
     </ul>

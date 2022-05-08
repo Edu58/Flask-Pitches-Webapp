@@ -33,6 +33,7 @@ def add_pitch():
 
         # if chooses category is in the db
         if category in choices:
+            print(choices.index(category))
             new_pitch = Pitches(pitch_content=pitch, category_id=int(choices.index(category)) + 1)
             db.session.add(new_pitch)
             db.session.commit()
