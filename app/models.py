@@ -60,7 +60,7 @@ class Categories(db.Model):
     pitches = db.relationship('Pitches', backref='category', lazy='dynamic')
 
     def __repr__(self):
-        return f'Category -> {self.category_name}'
+        return self.category_name
 
 
 class Comments(db.Model):

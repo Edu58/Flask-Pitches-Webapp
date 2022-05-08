@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
-{% from 'bootstrap5/form.html' import render_field, render_hidden_errors %}
-
-{% block styles %}
-{{ super() }}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='pitch-form.css') }}">
-{% endblock styles %}
 
 {% block title %} Home {% endblock %}
 
 {% block content %}
-<form method="POST" class="mt-4">
-    {{ form.csrf_token() }}
-    {{ render_hidden_errors(form) }}
-    {{ render_field(form.category) }}
-    {{ render_field(form.pitch, placeholder='write your pitch here') }}
-    {{ render_field(form.submit, button_size='sm', class="btn-success") }}
-</form>
+
+<div class="mt-5">
+    <ul class="list-group">
+        {% for pitch in pitches %}
+        <li class="list-group-item my-2">
+            <div>
+                <small class="fst-italic">{{ pitch.category }}</small>
+            </div>
+            {{ pitch.pitch_content }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 
 {% endblock %}

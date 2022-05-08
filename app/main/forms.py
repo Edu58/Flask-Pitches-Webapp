@@ -6,8 +6,8 @@ from ..models import Categories
 
 class NewPitchForm(FlaskForm):
     category = SelectField('Choose Pitch Category', validators=[DataRequired()],
-                           choices=[('interview', 'interview'), ('product', 'product'),
-                                    ('promotion', 'promotion'),
-                                    ('pickup-line', 'pickup line')])
+                           choices=[('interview', 'interview'), ('promotion', 'promotion'),
+                                    ('product', 'product'),
+                                    ('pickup line', 'pickup line')])
     pitch = TextAreaField('Pitch Content', validators=[DataRequired()])
     submit = SubmitField('submit')
