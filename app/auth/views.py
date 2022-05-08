@@ -3,7 +3,7 @@ from app import db
 from . import auth
 from .forms import LoginForm, SignupForm
 from ..models import Users
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 
 @auth.route('/login', methods=["GET", "POST"])
@@ -54,3 +54,9 @@ def signup():
         else:
             flash("Please fill all fields with valid data", category="warning")
     return render_template('signup.html', form=signup_form)
+
+
+@auth.route('/logout', methods=["GET", "POST"])
+def logout():
+    logout_user()
+    return redirect(url_for('auth.login'))
