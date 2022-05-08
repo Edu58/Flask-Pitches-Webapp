@@ -5,12 +5,14 @@ from config import config_options
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_moment import Moment
+from flask_uploads import IMAGES, UploadSet, configure_uploads
 
 db = SQLAlchemy()
 bootstrap = Bootstrap5()
 login_manager = LoginManager()
 migrate = Migrate()
 moment = Moment()
+photos = UploadSet('photos', IMAGES)
 
 
 def create_app(configuration):
@@ -30,6 +32,8 @@ def create_app(configuration):
     bootstrap.init_app(app)
 
     moment.init_app(app)
+
+    configure_uploads(app, photos)
 
     from app.main import main
     app.register_blueprint(main)

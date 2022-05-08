@@ -1,5 +1,5 @@
 from flask import render_template, url_for, redirect, request, flash
-from app import db
+from app import db, photos
 from . import main
 from .forms import NewPitchForm, CommentForm
 from ..models import Pitches, Comments, Reactions, Categories, Users
@@ -66,5 +66,19 @@ def add_comment(pitch_id, user_id):
 @login_required
 def profile(user_id):
     user = Users.query.filter_by(user_id=user_id).first()
-    return render_template('profile.html', first=user.first_name, last=user.last_name, email=user.email,
-                           profile_path=user.profile_path)
+    print(user.profile_path)
+    return render_template('profile.html', user=user)
+
+
+@main.route('/user/<user_id>/upload-profile-picture', methods=['POST'])
+@login_required
+def upload_profile_pic(user_id):
+    user = Users.query.filter_by(user_id=user_id).first()
+
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_path = path
+        db.session.commit()
+
+    return redirect(url_for('main.profile', user_id=user_id))
