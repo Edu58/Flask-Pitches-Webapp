@@ -60,3 +60,9 @@ def add_comment(pitch_id, user_id):
             flash('Invalid comment. Remember, BE NICE')
 
     return render_template('comment.html', form=comment_form, comments=all_comments)
+
+
+@main.route('/profile/<user_id>', methods=["GET", "POST"])
+@login_required
+def profile(user_id):
+    return render_template('profile.html')
