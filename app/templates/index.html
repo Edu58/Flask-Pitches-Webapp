@@ -37,14 +37,18 @@
                 <div>
                     <a href="{{ url_for('main.like', pitch_id=pitch.pitch_id, user_id=current_user.user_id) }}">
                         <button class="btn btn-light fs-5 text-warning">{{ render_icon('hand-thumbs-up-fill') }}
-                            <span class="badge bg-secondary"></span>
+
+                            <span class="badge bg-secondary">
+                                {{ pitch.get_likes(pitch.pitch_id) }}
+                            </span>
+
                         </button>
                     </a>
                 </div>
                 <div>
                     <a href="{{ url_for('main.dislike', pitch_id=pitch.pitch_id, user_id=current_user.user_id) }}">
                         <button class="btn btn-light fs-5 text-secondary">{{ render_icon('hand-thumbs-down-fill') }}
-                            <span class="badge bg-secondary"></span>
+                            <span class="badge bg-secondary">{{ pitch.get_dislikes(pitch.pitch_id) }}</span>
                         </button>
                     </a>
                 </div>

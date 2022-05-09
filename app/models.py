@@ -63,6 +63,28 @@ class Pitches(db.Model):
         pitches = Pitches.query.filter_by(user_id=id).all()
         return pitches
 
+    def get_likes(self, id):
+
+        all_likes = []
+
+        pitch = Pitches.query.filter_by(pitch_id=id).first()
+        for reaction in pitch.reactions:
+            if reaction.reaction == 1:
+                all_likes.append(reaction)
+
+        return len(all_likes)
+
+    def get_dislikes(self, id):
+
+        all_dislikes = []
+
+        pitch = Pitches.query.filter_by(pitch_id=id).first()
+        for reaction in pitch.reactions:
+            if reaction.reaction == 0:
+                all_dislikes.append(reaction)
+
+        return len(all_dislikes)
+
 
 class Categories(db.Model):
     __tablename__ = 'categories'
