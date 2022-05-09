@@ -63,6 +63,22 @@ def add_comment(pitch_id, user_id):
     return render_template('comment.html', form=comment_form, comments=all_comments, commenter=commenter.first_name)
 
 
+@main.route('/like/<user_id>/<pitch_id>', methods=["GET", "POST"])
+@login_required
+def like(pitch_id, user_id):
+    new_like = Reactions(reaction=1, user_id=user_id, pitch_id=pitch_id)
+    Reactions.save_reaction(new_like)
+    return redirect(request.args.get('next') or url_for('main.index'))
+
+
+@main.route('/dislike/<user_id>/<pitch_id>', methods=["GET", "POST"])
+@login_required
+def dislike(pitch_id, user_id):
+    new_dislike = Reactions(reaction=0, user_id=user_id, pitch_id=pitch_id)
+    Reactions.save_reaction(new_dislike)
+    return redirect(request.args.get('next') or url_for('main.index'))
+
+
 @main.route('/profile/<user_id>', methods=["GET", "POST"])
 @login_required
 def profile(user_id):
