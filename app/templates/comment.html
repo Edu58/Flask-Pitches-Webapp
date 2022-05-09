@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% from 'bootstrap5/form.html' import render_field %}
 
-{% block title %} Login {% endblock %}
+{% block title %} Comments {% endblock %}
 
 {% block content %}
 <div class="d-flex justify-content-center align-items-center mt-5">
@@ -30,7 +30,7 @@
 
                     {{ comment.comment }}
                     <div>
-                        <small class="float-end fst-italic">by {{ commenter }} </small>
+                        <small class="float-end fst-italic">by {{ comment.user.first_name }} </small>
                     </div>
                 </li>
                 {% endfor %}

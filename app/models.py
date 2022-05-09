@@ -59,31 +59,36 @@ class Pitches(db.Model):
         db.session.commit()
 
     @classmethod
-    def get_pitches(cls, id):
-        pitches = Pitches.query.filter_by(user_id=id).all()
+    def get_pitches(cls, user_id):
+        pitches = Pitches.query.filter_by(user_id=user_id).all()
         return pitches
 
-    def get_likes(self, id):
+    def get_likes(self, pitch_id):
 
         all_likes = []
 
-        pitch = Pitches.query.filter_by(pitch_id=id).first()
+        pitch = Pitches.query.filter_by(pitch_id=pitch_id).first()
         for reaction in pitch.reactions:
             if reaction.reaction == 1:
                 all_likes.append(reaction)
 
         return len(all_likes)
 
-    def get_dislikes(self, id):
+    def get_dislikes(self, pitch_id):
 
         all_dislikes = []
 
-        pitch = Pitches.query.filter_by(pitch_id=id).first()
+        pitch = Pitches.query.filter_by(pitch_id=pitch_id).first()
         for reaction in pitch.reactions:
             if reaction.reaction == 0:
                 all_dislikes.append(reaction)
 
         return len(all_dislikes)
+
+    def get_author(self, pitch_id):
+        author = Pitches.query.filter_by(pitch_id=pitch_id).first()
+        print(author)
+        return author
 
 
 class Categories(db.Model):
