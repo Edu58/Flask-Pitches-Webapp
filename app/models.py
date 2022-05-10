@@ -62,13 +62,7 @@ class Pitches(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    @classmethod
-    def get_pitches(cls, user_id):
-        pitches = Pitches.query.filter_by(user_id=user_id).all()
-        return pitches
-
     def get_likes(self, pitch_id):
-
         all_likes = []
 
         pitch = Pitches.query.filter_by(pitch_id=pitch_id).first()
