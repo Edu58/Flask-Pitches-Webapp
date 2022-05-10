@@ -31,6 +31,10 @@ class Users(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.pass_hashed, password)
 
+    def get_all_pitches(self, user_id):
+        us = Pitches.query.filter_by(user_id=user_id)
+        print(us.pitch_content)
+
     def get_id(self):
         return self.user_id
 

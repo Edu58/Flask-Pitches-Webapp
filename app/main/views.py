@@ -3,7 +3,7 @@ from app import db, photos
 from . import main
 from .forms import NewPitchForm, CommentForm
 from ..models import Pitches, Comments, Reactions, Categories, Users
-from flask_login import login_required
+from flask_login import login_required, current_user
 from sqlalchemy import desc
 
 
@@ -33,7 +33,8 @@ def add_pitch():
 
         # if chooses category is in the db
         if category in choices:
-            new_pitch = Pitches(pitch_content=pitch, category_id=int(choices.index(category)) + 1)
+            new_pitch = Pitches(pitch_content=pitch, category_id=int(choices.index(category)) + 1,
+                                user_id=current_user.user_id)
             db.session.add(new_pitch)
             db.session.commit()
             return redirect(url_for('main.index'))
@@ -79,12 +80,10 @@ def dislike(pitch_id, user_id):
     return redirect(request.args.get('next') or url_for('main.index'))
 
 
-@main.route('/profile/<user_id>', methods=["GET", "POST"])
+@main.route('/profile/<first_name>', methods=["GET", "POST"])
 @login_required
-def profile(user_id):
-    user = Users.query.filter_by(user_id=user_id).first()
-    print(user.profile_path)
-    return render_template('profile.html', user=user)
+def profile(first_name):
+    return render_template('profile.html', user=current_user)
 
 
 @main.route('/user/<user_id>/upload-profile-picture', methods=['POST'])

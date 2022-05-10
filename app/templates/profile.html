@@ -3,10 +3,9 @@
 {% block title %} Profile {% endblock %}
 
 {% block content %}
-{% if current_user.email == user.email %}
 <div class="d-flex justify-content-center flex-column align-items-center mt-5">
     <p class="text-center fs-2">Your Profile</p>
-    <div class="card" style="width: 18rem; height: 10rem;">
+    <div class="card p-3" style="max-width: 20rem; height: auto;">
         {% if user.profile_path %}
         <img src="{{url_for('static', filename=user.profile_path)}}" alt="{{ email }}"
              class="card-img-top img-fluid img-thumbnail" style="width: auto; max-height: 20rem;">
@@ -16,7 +15,7 @@
             <input type="file" name="photo" class="form-control" required>
             <button type="submit" class="btn btn-sm btn-success mt-2 w-100 mx-auto">update photo</button>
         </form>
-        {% elif user == current_user %}
+        {% else %}
         <p style="width: 15rem; height: 15rem; margin: auto; border-radius: 50%; background-color: gray;"></p>
 
         <form action="{{url_for('main.upload_profile_pic',user_id=user.user_id)}}" method="POST"
@@ -25,13 +24,25 @@
             <button type="submit" class="btn btn-sm btn-success mt-2 w-100 mx-auto">upload</button>
         </form>
         {% endif %}
-
-
         <div class="card-body">
             <h5 class="card-title">Name: {{ user.first_name | capitalize }} {{ user.last_name | capitalize}}</h5>
             <p class="card-text">Email: {{ user.email }}</p>
         </div>
     </div>
+
+    <div class="mt-4">
+        <p class="fs-3">Your Pitches</p>
+        <hr>
+    </div>
 </div>
-{% endif %}
+
+<div>
+    <ol class="list-group list-group-numbered">
+        {% for pitch in user.pitches %}
+        <li class="list-group-item my-2">
+            {{ pitch.pitch_content }}
+        </li>
+        {% endfor %}
+    </ol>
+</div>
 {% endblock content %}
