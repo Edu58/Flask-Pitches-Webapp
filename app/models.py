@@ -31,10 +31,6 @@ class Users(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.pass_hashed, password)
 
-    def get_all_pitches(self, user_id):
-        us = Pitches.query.filter_by(user_id=user_id)
-        print(us.pitch_content)
-
     def get_id(self):
         return self.user_id
 
@@ -73,7 +69,6 @@ class Pitches(db.Model):
         return len(all_likes)
 
     def get_dislikes(self, pitch_id):
-
         all_dislikes = []
 
         pitch = Pitches.query.filter_by(pitch_id=pitch_id).first()
@@ -108,11 +103,6 @@ class Comments(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    @classmethod
-    def get_comment(cls, id):
-        comments = Comments.query.filter_by(pitch_id=id).all()
-        return comments
-
 
 class Reactions(db.Model):
     __tablename__ = 'reactions'
@@ -125,8 +115,3 @@ class Reactions(db.Model):
     def save_reaction(self):
         db.session.add(self)
         db.session.commit()
-
-    @classmethod
-    def get_reactions(cls, id):
-        reactions = Reactions.query.filter_by(pitch_id=id).all()
-        return reactions
