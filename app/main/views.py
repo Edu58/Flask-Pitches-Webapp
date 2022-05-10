@@ -42,18 +42,18 @@ def add_pitch():
     return render_template('add-pitch.html', form=form)
 
 
-@main.route('/comment/<user_id>/<pitch_id>', methods=["GET", "POST"])
+@main.route('/comment/<pitch_id>', methods=["GET", "POST"])
 @login_required
-def add_comment(pitch_id, user_id):
+def add_comment(pitch_id):
     comment_form = CommentForm()
 
-    all_comments = Pitches.query.filter_by(pitch_id=pitch_id).first()
+    pitch_comments = Pitches.query.filter_by(pitch_id=pitch_id).first()
 
     if request.method == "POST":
         if comment_form.validate_on_submit():
 
             comment = comment_form.comment.data
-            new_comment = Comments(comment=comment, pitch_id=pitch_id, user_id=user_id)
+            new_comment = Comments(comment=comment, pitch_id=pitch_id, user_id=current_user.user_id)
 
             Comments.save_comment(new_comment)
 
@@ -61,7 +61,7 @@ def add_comment(pitch_id, user_id):
         else:
             flash('Invalid comment. Remember, BE NICE')
 
-    return render_template('comment.html', form=comment_form, comments=all_comments)
+    return render_template('comment.html', form=comment_form, comments=pitch_comments)
 
 
 @main.route('/like/<user_id>/<pitch_id>', methods=["GET", "POST"])
