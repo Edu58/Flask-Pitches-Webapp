@@ -64,6 +64,14 @@ def add_comment(pitch_id):
     return render_template('comment.html', form=comment_form, comments=pitch_comments)
 
 
+@main.route('/category/<category_id>', methods=["GET", "POST"])
+@login_required
+def single_category(category_id):
+    category_name = Categories.query.filter_by(category_id=category_id).first()
+    category_pitches = Pitches.query.filter_by(category_id=category_id).all()
+    return render_template('single-category.html', pitches=category_pitches, category=category_name)
+
+
 @main.route('/like/<user_id>/<pitch_id>', methods=["GET", "POST"])
 @login_required
 def like(pitch_id, user_id):

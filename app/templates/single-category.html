@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/utils.html' import render_icon %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='single-category.css') }}">
+{% endblock styles %}
+
+{% block title %} Category {% endblock %}
+
+{% block content %}
+
+{% if pitches != None %}
+
+<div>
+    <p class="fs-3 text-center">{{ category.category_name }}</p>
+</div>
+
+<ul class="list-group">
+    {% for pitch in pitches %}
+    <li class="list-group-item my-2">
+        <div>
+            <small class="fst-italic">category - {{ pitch.category.category_name }}</small>
+            <small class="fst-italic float-end">{{ moment(pitch.posted_on).format('LL') }}</small>
+        </div>
+
+        <div class="my-3">
+            {{ pitch.pitch_content }}
+            <div class="mt-1">
+                <small class="text-dark fst-italic">by @{{ pitch.user.first_name }} </small>
+            </div>
+        </div>
+
+        <div>
+            <div class="float-start d-flex">
+                <div>
+                    <a href="{{ url_for('main.like', pitch_id=pitch.pitch_id, user_id=current_user.user_id) }}">
+                        <button class="btn btn-light fs-5 text-warning">{{ render_icon('hand-thumbs-up-fill') }}
+
+                            <span class="badge bg-secondary">
+                                {{ pitch.get_likes(pitch.pitch_id) }}
+                            </span>
+
+                        </button>
+                    </a>
+                </div>
+                <div>
+                    <a href="{{ url_for('main.dislike', pitch_id=pitch.pitch_id, user_id=current_user.user_id) }}">
+                        <button class="btn btn-light fs-5 text-secondary">{{ render_icon('hand-thumbs-down-fill') }}
+                            <span class="badge bg-secondary">{{ pitch.get_dislikes(pitch.pitch_id) }}</span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="float-end">
+                <a href="{{ url_for('main.add_comment', pitch_id=pitch.pitch_id) }}">
+                    <button class="btn btn-sm text-light fst-italic" id="comment-btn">comments</button>
+                </a>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% else %}
+<p class="fs-3 text-center">Category has no pitches</p>
+{% endif %}
+
+{% endblock content %}
