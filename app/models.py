@@ -89,11 +89,6 @@ class Pitches(db.Model):
 
         return len(all_dislikes)
 
-    def get_author(self, pitch_id):
-        author = Pitches.query.filter_by(pitch_id=pitch_id).first()
-        print(author)
-        return author
-
 
 class Categories(db.Model):
     __tablename__ = 'categories'
