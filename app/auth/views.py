@@ -4,6 +4,7 @@ from . import auth
 from .forms import LoginForm, SignupForm
 from ..models import Users
 from flask_login import login_user, logout_user
+from app.email import send_email
 
 
 @auth.route('/login', methods=["GET", "POST"])
@@ -47,6 +48,8 @@ def signup():
                 password = signup_form.password.data
 
                 new_user = Users(email=email, first_name=first_name, last_name=last_name, password=password, )
+
+                send_email("Welcome to PitchRank", "email/welcome_user", new_user.email, user=new_user)
 
                 db.session.add(new_user)
                 db.session.commit()
