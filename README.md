@@ -7,7 +7,8 @@ A flask web app for submitting pitches
 ## Table of Content
 
 - [Description](#description)
-- [Installation Requirement](#usage)
+- [Installation Requirements](#requirements)
+- [Usage](#usage)
 - [Technology Used](#technologies)
 - [Licence](#licence)
 - [Authors Info](#author-info)
