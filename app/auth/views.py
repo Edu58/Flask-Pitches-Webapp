@@ -49,7 +49,7 @@ def signup():
 
                 new_user = Users(email=email, first_name=first_name, last_name=last_name, password=password, )
 
-                send_email("Welcome to PitchRank", "email/welcome_user", new_user.email, user=new_user)
+                # send_email("Welcome to PitchRank", "email/welcome_user", new_user.email, user=new_user)
 
                 db.session.add(new_user)
                 db.session.commit()
