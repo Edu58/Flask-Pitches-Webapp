@@ -7,12 +7,17 @@ from flask_migrate import Migrate
 from flask_moment import Moment
 from flask_uploads import IMAGES, UploadSet, configure_uploads
 
+# from flask_mail import Mail
+
 db = SQLAlchemy()
 bootstrap = Bootstrap5()
 login_manager = LoginManager()
 migrate = Migrate()
 moment = Moment()
 photos = UploadSet('photos', IMAGES)
+
+
+# mail = Mail()
 
 
 def create_app(configuration):
@@ -34,6 +39,8 @@ def create_app(configuration):
     moment.init_app(app)
 
     configure_uploads(app, photos)
+
+    # mail.init_app(app)
 
     from app.main import main
     app.register_blueprint(main)

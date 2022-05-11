@@ -21,8 +21,6 @@ def login():
 
             get_user = Users.query.filter_by(email=email).first()
 
-            print(get_user)
-
             if get_user and Users.verify_password(get_user, password):
                 login_user(get_user)
                 flash("Login successful", category="success")
