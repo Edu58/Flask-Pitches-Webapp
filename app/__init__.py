@@ -6,9 +6,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_moment import Moment
 from flask_uploads import IMAGES, UploadSet, configure_uploads
 
+app = None
 # from flask_mail import Mail
 
-db = SQLAlchemy()
+db = SQLAlchemy(app)
 bootstrap = Bootstrap5()
 login_manager = LoginManager()
 moment = Moment()
@@ -19,6 +20,7 @@ photos = UploadSet('photos', IMAGES)
 
 
 def create_app(configuration):
+    global app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(config_options[configuration])
 
