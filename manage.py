@@ -16,13 +16,13 @@ def make_shell_context():
                 reactions=Reactions)
 
 
-@manager.command
-def deploy():
-    """Run deployment tasks."""
-    from flask_migrate import upgrade
-    from app.models import Users, Pitches, Categories, Comments, Reactions
-    # migrate database to latest revision
-    upgrade()
+# @manager.command
+# def deploy():
+#     """Run deployment tasks."""
+#     from flask_migrate import upgrade
+#     from app.models import Users, Pitches, Categories, Comments, Reactions
+#     # migrate database to latest revision
+#     upgrade()
 
 
 @manager.command
