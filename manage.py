@@ -23,11 +23,6 @@ def deploy():
     from app.models import Users, Pitches, Categories, Comments, Reactions
     # migrate database to latest revision
     upgrade()
-    Users.insert_roles()
-    Pitches.add_self_follows()
-    Categories.add_self_follows()
-    Comments.add_self_follows()
-    Reactions.add_self_follows()
 
 
 @manager.command
