@@ -2,11 +2,8 @@ import os
 
 
 class Config:
+    SECRET_KEY = os.environ.get("SECRET_KEY")
     UPLOADED_PHOTOS_DEST = 'app/static/photos'
-    uri = os.getenv("DATABASE_URL")  # or other relevant config var
-    if uri.startswith("postgres://"):
-        uri = uri.replace("postgres://", "postgresql://", 1)
-    # rest of connection code using the connection string `uri`
 
 
 class DevConfig(Config):
@@ -14,9 +11,11 @@ class DevConfig(Config):
 
 
 class ProdConfig(Config):
-    DEBUG = False
-    SECRET_KEY = os.environ.get("SECRET_KEY")
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    uri = os.getenv("DATABASE_URL")  # or other relevant config var
+    if uri.startswith("postgres://"):
+        uri = uri.replace("postgres://", "postgresql://", 1)
+    # rest of connection code using the connection string `uri`
+    SQLALCHEMY_DATABASE_URI = uri
 
 
 config_options = {
