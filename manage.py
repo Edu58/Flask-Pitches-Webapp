@@ -6,6 +6,8 @@ app = create_app('production')
 manager = Manager(app)
 manager.add_command('server', Server)
 
+db = db
+
 
 @manager.shell
 def make_shell_context():
