@@ -10,11 +10,6 @@ from flask_uploads import IMAGES, UploadSet, configure_uploads
 
 # from flask_mail import Mail
 
-uri = os.getenv("DATABASE_URL")  # or other relevant config var
-if uri.startswith("postgres://"):
-    uri = uri.replace("postgres://", "postgresql://", 1)
-# rest of connection code using the connection string `uri`
-
 db = SQLAlchemy()
 bootstrap = Bootstrap5()
 login_manager = LoginManager()
@@ -28,6 +23,11 @@ photos = UploadSet('photos', IMAGES)
 def create_app(configuration):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(config_options[configuration])
+
+    uri = os.getenv("DATABASE_URL")  # or other relevant config var
+    if uri.startswith("postgres://"):
+        uri = uri.replace("postgres://", "postgresql://", 1)
+    # rest of connection code using the connection string `uri`
 
     db.init_app(app)
 
