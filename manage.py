@@ -17,6 +17,20 @@ def make_shell_context():
 
 
 @manager.command
+def deploy():
+    """Run deployment tasks."""
+    from flask_migrate import upgrade
+    from app.models import Users, Pitches, Categories, Comments, Reactions
+    # migrate database to latest revision
+    upgrade()
+    Users.insert_roles()
+    Pitches.add_self_follows()
+    Categories.add_self_follows()
+    Comments.add_self_follows()
+    Reactions.add_self_follows()
+
+
+@manager.command
 def test():
     import unittest
     tests = unittest.TestLoader().discover('test')
