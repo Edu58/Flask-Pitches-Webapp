@@ -1,3 +1,5 @@
+import os
+import re
 from flask import Flask
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap5
@@ -7,6 +9,11 @@ from flask_moment import Moment
 from flask_uploads import IMAGES, UploadSet, configure_uploads
 
 # from flask_mail import Mail
+
+uri = os.getenv("DATABASE_URL")  # or other relevant config var
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+# rest of connection code using the connection string `uri`
 
 db = SQLAlchemy()
 bootstrap = Bootstrap5()
