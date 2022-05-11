@@ -23,7 +23,6 @@ photos = UploadSet('photos', IMAGES)
 def create_app(configuration):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(config_options[configuration])
-    app.config.from_pyfile('config.py')
 
     db.init_app(app)
 
