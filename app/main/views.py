@@ -19,21 +19,26 @@ def index():
 @main.route('/add', methods=["GET", "POST"])
 @login_required
 def add_pitch():
-    # Get all categories from db
-    all_categories_list = Categories.query.all()
+    get_all_categories = Categories.query.all()
     choices = []
-    for category in all_categories_list:
-        choices.append(category.category_name)
+    for cat in get_all_categories:
+        choices.append(cat.category_name)
 
     form = NewPitchForm()
     # Submission handling
     if request.method == "POST" and form.validate_on_submit():
-        category = form.category.data
+        category_name = form.category.data
         pitch = form.pitch.data
 
+        # Add category to db if doesn't already exist
+        if category_name not in choices:
+            add_category = Categories(category_name=category_name)
+            db.session.add(add_category)
+            db.session.commit()
+
         # if chooses category is in the db
-        if category in choices:
-            new_pitch = Pitches(pitch_content=pitch, category_id=int(choices.index(category)) + 1,
+        if category_name in choices:
+            new_pitch = Pitches(pitch_content=pitch, category_id=int(choices.index(category_name)) + 1,
                                 user_id=current_user.user_id)
             db.session.add(new_pitch)
             db.session.commit()
@@ -105,7 +110,7 @@ def upload_profile_pic(user_id):
         user.profile_path = path
         db.session.commit()
 
-    return redirect(url_for('main.profile', user_id=user_id))
+    return redirect(url_for('main.profile', first_name=current_user.first_name))
 
 
 @main.route('/user/<user_id>/update-profile-picture', methods=['POST'])
@@ -122,4 +127,4 @@ def update_profile_pic(user_id):
         user.profile_path = path
         db.session.commit()
 
-    return redirect(url_for('main.profile', user_id=user_id))
+    return redirect(url_for('main.profile', first_name=current_user.first_name))

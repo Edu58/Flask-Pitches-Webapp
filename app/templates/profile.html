@@ -19,7 +19,7 @@
         {% else %}
         <p style="width: 15rem; height: 15rem; margin: auto; border-radius: 50%; background-color: gray;"></p>
 
-        <form action="{{url_for('main.upload_profile_pic',user_id=user.user_id)}}" method="POST"
+        <form action="{{url_for('main.upload_profile_pic',user_id=current_user.user_id)}}" method="POST"
               enctype="multipart/form-data" class="my-2">
             <input type="file" name="photo" class="form-control" required>
             <button type="submit" class="btn btn-sm btn-success mt-2 w-100 mx-auto">upload</button>
