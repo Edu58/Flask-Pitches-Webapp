@@ -1,7 +1,0 @@
-.idea
-.bin
-*.pyc
-virtual/
-start.sh
-__pycache__
-instance/
