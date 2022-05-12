@@ -2,6 +2,7 @@ import os
 
 
 class Config:
+    SECRET_KEY = os.environ.get("SECRET_KEY")
     UPLOADED_PHOTOS_DEST = 'app/static/photos'
 
 
@@ -11,7 +12,7 @@ class DevConfig(Config):
 
 class ProdConfig(Config):
     DEBUG = False
-    uri = os.getenv("DATABASE_URL")  # or other relevant config var
+    uri = os.environ.get("DATABASE_URL")  # or other relevant config var
     if uri.startswith("postgres://"):
         uri = uri.replace("postgres://", "postgresql://", 1)
     # rest of connection code using the connection string `uri`
