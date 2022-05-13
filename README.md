@@ -75,6 +75,8 @@ git clone git@github.com:Edu58/Flask-Pitches-Webapp.git
 
 When you run the commands successfully, you should have a local version of this repository.
 
+Before starting the application, run ```pip install -r requirements.txt``` to install the project dependencies.
+
 To run the app, unzip the cloned folder if it is zipped. Otherwise, navigate inside the folder and
 run ```python manage.py runserver``` or ```python manage.py server``` in your terminal. Any of these 2 should start the
 server at
